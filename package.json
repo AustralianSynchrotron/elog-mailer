@@ -1,0 +1,15 @@
+{
+  "name": "elog-mailer",
+  "version": "0.0.0",
+  "description": "Email elog summaries.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robbie Clarken",
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "~0.5.3",
+    "mysql": "~2.0.0-alpha9"
+  }
+}
