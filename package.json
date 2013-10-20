@@ -11,6 +11,9 @@
   "license": "MIT",
   "dependencies": {
     "nodemailer": "~0.5.3",
-    "mysql": "~2.0.0-alpha9"
+    "mysql": "~2.0.0-alpha9",
+    "levelup": "~0.17.0",
+    "leveldown": "~0.9.1",
+    "shortid": "~2.0.0"
   }
 }
