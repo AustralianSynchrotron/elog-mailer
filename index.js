@@ -1,19 +1,21 @@
-var config = require('./config')
-  , mysql = require('mysql');
+var http = require('http')
+  , url = require('url')
+  , config = require('./config')
+  , router = require('./router')
+  , decorate = require('./decorate');
 
-var connection = mysql.createConnection(config.db);
-connection.connect();
+http.createServer(function(req, res) {
+  decorate(req, res, config);
 
-var query = 'SELECT title, author, TIMESTAMP(date, time) AS datetime, text, parent_id ' +
-            'FROM elog_data ' +
-            'NATURAL LEFT JOIN elog_groups '+
-            'WHERE group_id = 10 AND TIMESTAMP(date, time) BETWEEN "2013-10-17" AND "2013-10-18" ORDER BY datetime';
+  var parsed = url.parse(req.url);
+  var route = router.match(parsed.path);
 
-connection.query(query, function(err, entries, fields) {
-  if (err) throw err;
-  entries.forEach(function(entry) {
-    console.log(entry.datetime, entry.title, entry.author);
-  });
-});
+  if(!route) return res.error(404);
 
-connection.end();
+  req.params = route.params;
+  route.fn(req, res);
+
+}).listen(config.http.port);
+
+console.log('Listening on ', config.http.port);
+

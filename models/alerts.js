@@ -44,14 +44,14 @@ function Alert(id, properties, db) {
   this._db = db;
   this.email = properties.email;
   this.group = properties.group;
-  this.schedule = properties.schedule;
+  this.paused = properties.paused;
 }
 
 Alert.prototype.save = function(callback) {
   var properties = {
     email: this.email,
     group: this.group,
-    schedule: this.schedule
+    paused: this.paused
   };
   this._db.put(this._id, properties, callback);
 }

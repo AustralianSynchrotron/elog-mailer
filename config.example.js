@@ -4,3 +4,6 @@ exports.db = {
   password: 'secret',
   database: 'database'
 };
+exports.http = {
+  port: 8888
+};
