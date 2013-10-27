@@ -15,7 +15,6 @@ http.createServer(function(req, res) {
   req.params = route.params;
   route.fn(req, res);
 
-}).listen(config.http.port);
-
-console.log('Listening on ', config.http.port);
-
+}).listen(config.http.port, function() {
+  console.log('Listening on ', config.http.port);
+});
