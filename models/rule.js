@@ -18,7 +18,9 @@ Rule.prototype.toJSON = function() {
 
 Rule.prototype.evaluate = function(input) {
   if (this.condition == 'all') {
-    return _.difference(this.values, input).length == 0;
+    return _.intersection(this.values, input).length === this.values.length;
+  } else if (this.condition == 'any') {
+    return this.values.length === 0 || _.intersection(this.values, input).length !== 0;
   } else {
     throw new Error('Not implemented.');
   }
