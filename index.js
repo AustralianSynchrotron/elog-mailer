@@ -1,8 +1,11 @@
 var http = require('http')
   , url = require('url')
+  , levelup = require('levelup')
   , config = require('./config')
   , router = require('./router')
   , decorate = require('./decorate');
+
+config.db = levelup('./store/subscriptions', {valueEncoding: 'json'});
 
 http.createServer(function(req, res) {
   decorate(req, res, config);
@@ -12,6 +15,7 @@ http.createServer(function(req, res) {
 
   if(!route) return res.error(404);
 
+  req.json = req.headers.accept === 'application/json';
   req.params = route.params;
   route.fn(req, res);
 

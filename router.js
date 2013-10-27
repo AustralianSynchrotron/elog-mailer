@@ -8,3 +8,4 @@ router.addRoute('/css/*?', static);
 router.addRoute('/js/*?', static);
 
 router.addRoute('/', require('./routes/index'));
+router.addRoute('/subscriptions', require('./routes/subscriptions'));
