@@ -5,13 +5,11 @@ var Rule = require('../../models/rule');
 describe('rule model', function() {
   describe('with condition all', function() {
     var rule;
-    var properties = {
-        condition: 'all'
-      , values: ['MX1', 'XFM', 'Operations']
-    };
+    var condition = 'all';
+    var values = ['MX1', 'XFM', 'Operations'];
 
     beforeEach(function() {
-      rule = new Rule(properties);
+      rule = new Rule(condition, values);
     });
 
     it('should create with all properties', function() {
@@ -31,13 +29,11 @@ describe('rule model', function() {
   });
   describe('with condition any', function() {
     var rule;
-    var properties = {
-        condition: 'any'
-      , values: ['MX1', 'XFM', 'Operations']
-    };
+    var condition = 'any';
+    var values = ['MX1', 'XFM', 'Operations'];
 
     beforeEach(function() {
-      rule = new Rule(properties);
+      rule = new Rule(condition, values);
     });
 
     it('should create with all properties', function() {

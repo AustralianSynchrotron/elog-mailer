@@ -2,11 +2,11 @@ module.exports = Rule;
 
 var _ = require('underscore');
 
-function Rule(properties) {
-  if(!(this instanceof Rule)) return new Rule(properties);
+function Rule(condition, values) {
+  if(!(this instanceof Rule)) return new Rule(condition, values);
   // TODO: Validate
-  this.condition = properties.condition;
-  this.values = properties.values;
+  this.condition = condition;
+  this.values = values;
 }
 
 Rule.prototype.toJSON = function() {
