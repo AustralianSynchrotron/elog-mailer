@@ -6,23 +6,26 @@ var Rule = require('./rule');
 
 function Subscription(id, properties, db) {
   if(!(this instanceof Subscription)) return new Subscription(id, properties, db);
-  // TODO: Validate
-  this._id = id;
+  this.id = id;
   this._db = db;
-  this.email = properties.email;
-  this.groupRules = properties.groupRules.map(function(p) {
+  this.email = properties.email || '';
+  this.groupRules = (properties.groupRules || []).map(function(p) {
     return Rule(p.condition, p.values);
   });
-  this.paused = properties.paused;
+  this.paused = properties.paused || false;
 }
 
 Subscription.prototype.save = function(callback) {
-  var properties = {
-      email: this.email
+  this._db.put(this.id, this, callback);
+}
+
+Subscription.prototype.toJSON = function() {
+  return {
+      id: this.id 
+    , email: this.email
     , groupRules: this.groupRules
     , paused: this.paused
   };
-  this._db.put(this._id, properties, callback);
 }
 
 Subscription.prototype.evaluateRules = function(entry) {

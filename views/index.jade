@@ -1,6 +1,35 @@
+- var groups = ['IR', 'MX1', 'MX2', 'XFM', 'IMT', 'PD', 'XAS', 'SWAX', 'SXR', 'Operations', 'Controls', 'Electrical', 'Mechanical', 'OHSE', 'Far-IR', 'ODB', 'IT', 'OHS Committee', 'SXR Imaging', 'BIG']
 doctype 5
-html(lang="en")
+html(lang='en')
   head
     title eLog Mailer
+    link(rel='stylesheet', href='/css/main.css')
+    script(src='/js/jquery.js')
+    script.
+      $(function() {
+      });
   body
-    h1 Coming soon!
+    h1 Subscriptions
+    table
+      tr
+        th.email-column Email
+        th.group-column Group Rules
+        th.edit-column
+      each subscription in subscriptions
+        tr
+          td= subscription.email
+          td
+            each rule in subscription.groupRules
+              div.rule-condition
+                select
+                  option Any
+                  option All
+              div.rule-selection
+                each group in groups
+                  div.selector
+                    label
+                      input.toggle(type='checkbox', checked=(group in rule.values))
+                      | #{group}
+              div.clear
+          td
+            button Edit

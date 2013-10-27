@@ -1,7 +1,7 @@
 module.exports = Subscriptions;
 
 var shortId = require('shortid');
-var Subscription = require('./subscriptions');
+var Subscription = require('./subscription');
 
 function Subscriptions(db) {
   if(!(this instanceof Subscriptions)) return new Subscriptions(db);

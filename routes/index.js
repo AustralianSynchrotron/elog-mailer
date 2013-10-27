@@ -9,6 +9,6 @@ function index(req, res) {
     if(req.json) {
       return res.sendJSON(subscriptions);
     }
-    return res.template('index.jade');
+    return res.template('index.jade', {subscriptions: subscriptions});
   });
 }

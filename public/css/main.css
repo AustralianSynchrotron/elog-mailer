@@ -43,3 +43,11 @@ table, th, td {
 .selector {
   display: inline-block;
 }
+
+.email-column {
+  width: 20em;
+}
+
+.edit-column {
+  width: 6em;
+}

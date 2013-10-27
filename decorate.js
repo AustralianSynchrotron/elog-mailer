@@ -21,7 +21,7 @@ function decorate (req, res, config) {
     target = url.format(target)
     res.setHeader('location', target)
     var avail = ['text/html', 'application/json']
-    res.html( '<html><body><h1>Moved'
+    res.sendHTML( '<html><body><h1>Moved'
             + (code === 302 ? ' Permanently' : '') + '</h1>'
             + '<a href="' + target + '">' + target + '</a>')
   }
