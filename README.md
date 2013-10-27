@@ -1,1 +1,1 @@
-Email elog summaries.
+Website to manage email subscriptions to the Australian Synchrotron elog.

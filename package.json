@@ -1,7 +1,11 @@
 {
   "name": "elog-mailer",
   "version": "0.0.0",
-  "description": "Email elog summaries.",
+  "description": "Manage email subscriptions to the Australian Synchrotron elog.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AustralianSynchrotron/elog-mailer.git"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
