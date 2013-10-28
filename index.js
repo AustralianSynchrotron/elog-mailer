@@ -15,8 +15,9 @@ http.createServer(function(req, res) {
 
   if(!route) return res.error(404);
 
-  req.json = req.headers.accept === 'application/json';
   req.params = route.params;
+  req.json = req.headers.accept === 'application/json';
+
   route.fn(req, res);
 
 }).listen(config.http.port, function() {

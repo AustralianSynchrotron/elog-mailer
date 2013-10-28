@@ -25,7 +25,8 @@
     "nodemailer": "~0.5.3",
     "node-schedule": "~0.1.11",
     "st": "~0.2.2",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "formidable": "~1.0.14"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
