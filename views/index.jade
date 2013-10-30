@@ -7,29 +7,64 @@ html(lang='en')
     script(src='/js/jquery.js')
     script.
       $(function() {
+        $('.add').click(function() {
+          var rules = $(this).siblings('.rules');
+          var lastRule = rules.children('.rule').last();
+          var ruleNumber = 0;
+          if (lastRule.length) {
+            ruleNumber = lastRule.data('ruleNumber') + 1;
+          }
+          var newRule = $('#new-rule > .rule');
+          newRule.data('ruleNumber', ruleNumber);
+          newRule.find('.rule-condition').attr('name', 'rule['+ruleNumber+']condition');
+          newRule.find('.rule-value').attr('name', 'rule['+ruleNumber+']values');
+          rules.append(newRule.clone());
+        });
       });
   body
     h1 Subscriptions
-    table
-      tr
-        th.email-column Email
-        th.group-column Group Rules
-        th.edit-column
+    div
+      div.row
+        div.email-column Email
+        div.group-column Group Rules
+        div.edit-column
+        div.clear
+        hr
       each subscription in subscriptions
-        tr
-          td= subscription.email
-          td
-            each rule in subscription.groupRules
-              div.rule-condition
-                select
-                  option Any
-                  option All
-              div.rule-selection
-                each group in groups
-                  div.selector
-                    label
-                      input.toggle(type='checkbox', checked=(group in rule.values))
-                      | #{group}
-              div.clear
-          td
-            button Edit
+        form(action='/subscriptions/#{subscription.id}', method='POST')
+          div.row
+            div.email-column
+              input(name='email', value=subscription.email)
+            div.group-column
+              div.rules
+                if subscription.groupRules.length
+                  each rule, ruleNumber in subscription.groupRules
+                    div.rule(data-rule-number=ruleNumber)
+                      div.rule-condition-container
+                        select.rule-condition(name='rule[#{ruleNumber}]condition')
+                          option(value='any', selected=(rule.condition === 'any')) Any
+                          option(value='all', selected=(rule.condition === 'all')) All
+                      div.rule-values-container
+                        each group in groups
+                          div.selector
+                            label
+                              input.rule-value(type='checkbox', name='rule[#{ruleNumber}]values', value=group, checked=(rule.values.indexOf(group) !== -1))
+                            | #{group}
+              a.add(href='#') Add
+            div.edit-column
+              button.save Save
+            div.clear
+            hr
+
+    div#new-rule.hidden
+      div.rule(data-rule-number='0')
+        div.rule-condition-container
+          select.rule-condition
+            option(value='any') Any
+            option(value='all') All
+        div.rule-values-container
+          each group in groups
+            div.selector
+              label
+                input.rule-value(type='checkbox', value=group)
+              | #{group}

@@ -23,7 +23,7 @@ table, th, td {
   float:right;
 }
 
-.center{
+.center {
   text-align: center;
 }
 
@@ -31,23 +31,43 @@ table, th, td {
   clear: both;
 }
 
-.rule-condition {
-  float:left;
+.rule-condition-container {
+  float: left;
   width: 6em;
 }
 
-.rule-selection {
+.rule-values-container {
   margin-left: 6.5em;
 }
 
 .selector {
   display: inline-block;
+  width: 10em;
+}
+
+.row {
+  width: 87em;
 }
 
 .email-column {
   width: 20em;
+  height: 1.8em;
+  float:left;
+}
+
+.group-column {
+  width: 60em;
+  min-height: 1.8em;
+  float: left;
 }
 
 .edit-column {
   width: 6em;
+  height: 1.8em;
+  float: left;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }

@@ -38,7 +38,7 @@ function updateSubscription (id, req, res) {
       });
 
       subscription.save(function(err) {
-        res.redirect('/subscriptions/' + id);
+        res.redirect('/');
       });
 
     });
@@ -48,7 +48,7 @@ function updateSubscription (id, req, res) {
 function createSubscription (req, res) {
   parseFields(req, res, function(err, fields) {
     return req.subscriptions.create(fields, function(err, subscription) {
-      res.redirect('/subscriptions/' + subscription.id);
+      res.redirect('/');
     });
   });
 }
@@ -58,6 +58,31 @@ function parseFields(req, res, callback) {
   form.parse(req, function(err, fields) {
     // TODO: Properly parse all fields
     fields.paused = fields.paused === 'true';
+
+    var re = /^rule\[(\d+)\]condition$/
+
+    var groupRules = [];
+
+    for(var property in fields) {
+
+      var match = re.exec(property);
+      if (!match) continue;
+
+      var condition = fields[property]; 
+      var values = fields['rule['+match[1]+']values'];
+      if(! (values instanceof Array) ) {
+        values = [ values ];
+      }
+
+      groupRules.push({
+          condition: condition
+        , values: values
+      });
+
+    }
+
+    fields.groupRules = groupRules;
+
     callback(err, fields);
   });
 }
