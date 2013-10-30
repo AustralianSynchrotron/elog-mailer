@@ -6,9 +6,6 @@ function index(req, res) {
   }
 
   req.subscriptions.find(function(err, subscriptions) {
-    if(req.json) {
-      return res.sendJSON(subscriptions);
-    }
     return res.template('index.jade', {subscriptions: subscriptions});
   });
 }
