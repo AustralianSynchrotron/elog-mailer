@@ -38,3 +38,7 @@ Subscriptions.prototype.create = function(properties, callback) {
     callback(err, subscription);
   });
 }
+
+Subscriptions.prototype.del = function(id, callback) {
+  this.db.del(id, callback);
+}

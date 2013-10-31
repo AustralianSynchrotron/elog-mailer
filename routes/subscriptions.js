@@ -21,6 +21,11 @@ function subscriptions(req, res) {
         return updateSubscription(req.params.id, req, res);
       }
       return createSubscription(req, res);
+    case 'DELETE':
+      if(typeof(req.params.id) !== 'undefined') {
+        return deleteSubscription(req.params.id, req, res);
+      }
+      return res.error(405);
     default:
       return res.error(405);
   }
@@ -50,6 +55,12 @@ function createSubscription (req, res) {
     return req.subscriptions.create(fields, function(err, subscription) {
       res.redirect('/');
     });
+  });
+}
+
+function deleteSubscription (id, req, res) {
+  return req.subscriptions.del(id, function(err) {
+    res.redirect('/');
   });
 }
 

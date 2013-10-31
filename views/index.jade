@@ -7,7 +7,7 @@ html(lang='en')
     script(src='/js/jquery.js')
     script.
       $(function() {
-        $('.add').click(function() {
+        $('.add-rule').click(function() {
           var rules = $(this).siblings('.rules');
           var lastRule = rules.children('.rule').last();
           var ruleNumber = 0;
@@ -20,41 +20,60 @@ html(lang='en')
           newRule.find('.rule-value').attr('name', 'rule['+ruleNumber+']values');
           rules.append(newRule.clone());
         });
+        $('.remove-rule').click(function() {
+          $(this).closest('.rule').remove();
+        });
+        $('.delete').click(function() {
+          var url = $(this).closest('form').attr('action');
+          $.ajax({
+            url: url,
+            method: 'DELETE'
+          }).done(function() {
+            location.reload();
+          });
+        });
       });
   body
     h1 Subscriptions
     div
-      div.row
+      div.row.subscriptions-header
         div.email-column Email
         div.group-column Group Rules
         div.edit-column
         div.clear
         hr
+        mixin row(subscription, isNew)
+          - var id = subscription.id || '';
+          form(action='/subscriptions/#{id}', method='POST')
+            div.row
+              div.email-column
+                input(name='email', value=subscription.email)
+              div.group-column
+                div.rules
+                  if subscription.groupRules
+                    each rule, ruleNumber in subscription.groupRules
+                      div.rule(data-rule-number=ruleNumber)
+                        div.rule-condition-container
+                          select.rule-condition(name='rule[#{ruleNumber}]condition')
+                            option(value='any', selected=(rule.condition === 'any')) Any
+                            option(value='all', selected=(rule.condition === 'all')) All
+                          a.remove-rule(href='#') Delete Rule
+                        div.rule-values-container
+                          each group in groups
+                            div.selector
+                              label
+                                input.rule-value(type='checkbox', name='rule[#{ruleNumber}]values', value=group, checked=(rule.values.indexOf(group) !== -1))
+                              | #{group}
+                a.add-rule(href='#') Add Rule
+              div.edit-column
+                button.save Save
+                unless isNew
+                  button.delete(type='button') Delete
+              div.clear
+              hr
       each subscription in subscriptions
-        form(action='/subscriptions/#{subscription.id}', method='POST')
-          div.row
-            div.email-column
-              input(name='email', value=subscription.email)
-            div.group-column
-              div.rules
-                if subscription.groupRules.length
-                  each rule, ruleNumber in subscription.groupRules
-                    div.rule(data-rule-number=ruleNumber)
-                      div.rule-condition-container
-                        select.rule-condition(name='rule[#{ruleNumber}]condition')
-                          option(value='any', selected=(rule.condition === 'any')) Any
-                          option(value='all', selected=(rule.condition === 'all')) All
-                      div.rule-values-container
-                        each group in groups
-                          div.selector
-                            label
-                              input.rule-value(type='checkbox', name='rule[#{ruleNumber}]values', value=group, checked=(rule.values.indexOf(group) !== -1))
-                            | #{group}
-              a.add(href='#') Add
-            div.edit-column
-              button.save Save
-            div.clear
-            hr
+        +row(subscription)
+      +row({}, true)
 
     div#new-rule.hidden
       div.rule(data-rule-number='0')
@@ -62,6 +81,7 @@ html(lang='en')
           select.rule-condition
             option(value='any') Any
             option(value='all') All
+          a.remove-rule(href='#') Delete Rule
         div.rule-values-container
           each group in groups
             div.selector

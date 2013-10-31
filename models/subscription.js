@@ -19,6 +19,10 @@ Subscription.prototype.save = function(callback) {
   this._db.put(this.id, this, callback);
 }
 
+Subscription.prototype.del = function(callback) {
+  this._db.del(this.id, callback);
+}
+
 Subscription.prototype.toJSON = function() {
   return {
       id: this.id 

@@ -46,7 +46,11 @@ table, th, td {
 }
 
 .row {
-  width: 87em;
+  width: 93em;
+}
+
+.subscriptions-header {
+  font-weight: bold;
 }
 
 .email-column {
@@ -62,10 +66,9 @@ table, th, td {
 }
 
 .edit-column {
-  width: 6em;
-  height: 1.8em;
-  float: left;
-  text-align: center;
+  width: 12em;
+  float: right;
+  text-align: left;
 }
 
 .hidden {
