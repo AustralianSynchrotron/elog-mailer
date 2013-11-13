@@ -8,7 +8,7 @@ describe('subscription model', function() {
   var subscription;
   var id = 'id123';
   var properties = {
-      email: 'mail@example.com'
+      emails: [ 'mail@example.com' ]
     , groupRules: [
         {condition: 'all', values: ['P', 'Q']}
       , {condition: 'any', values: ['R', 'S']}
@@ -19,7 +19,7 @@ describe('subscription model', function() {
     subscription = new Subscription(id, properties);
   });
   it('should create with all properties', function() {
-    subscription.email.should.equal('mail@example.com');
+    subscription.emails.should.include('mail@example.com');
     subscription.paused.should.equal(false);
     var rule1 = subscription.groupRules[0];
     rule1.should.be.an.instanceOf(Rule);

@@ -37,7 +37,7 @@ function updateSubscription (id, req, res) {
 
       if(err) return res.error(404);
 
-      ['email', 'groupRules', 'paused'].forEach(function(field) {
+      ['emails', 'groupRules', 'paused'].forEach(function(field) {
         if(!fields.hasOwnProperty(field)) return;
         subscription[field] = fields[field];
       });
@@ -68,6 +68,9 @@ function parseFields(req, res, callback) {
   var form = new formidable.IncomingForm();
   form.parse(req, function(err, fields) {
     // TODO: Properly parse all fields
+    if(typeof fields.emails === 'string') {
+        fields.emails = [ fields.emails ];
+    }
     fields.paused = fields.paused === 'true';
 
     var re = /^rule\[(\d+)\]condition$/

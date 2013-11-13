@@ -8,7 +8,7 @@ function Subscription(id, properties, db) {
   if(!(this instanceof Subscription)) return new Subscription(id, properties, db);
   this.id = id;
   this._db = db;
-  this.email = properties.email || '';
+  this.emails = properties.emails || [];
   this.groupRules = (properties.groupRules || []).map(function(p) {
     return Rule(p.condition, p.values);
   });
@@ -26,7 +26,7 @@ Subscription.prototype.del = function(callback) {
 Subscription.prototype.toJSON = function() {
   return {
       id: this.id 
-    , email: this.email
+    , emails: this.emails
     , groupRules: this.groupRules
     , paused: this.paused
   };

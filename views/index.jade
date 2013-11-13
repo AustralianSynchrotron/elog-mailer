@@ -1,4 +1,5 @@
 - var groups = ['IR', 'MX1', 'MX2', 'XFM', 'IMT', 'PD', 'XAS', 'SWAX', 'SXR', 'Operations', 'Controls', 'Electrical', 'Mechanical', 'OHSE', 'Far-IR', 'ODB', 'IT', 'OHS Committee', 'SXR Imaging', 'BIG']
+
 doctype 5
 html(lang='en')
   head
@@ -7,6 +8,13 @@ html(lang='en')
     script(src='/js/jquery.js')
     script.
       $(function() {
+        $('.add-email').click(function() {
+          var emails = $(this).siblings('.emails');
+          emails.append($('#new-email > .email-container').clone(true));
+        });
+        $('.remove-email').click(function() {
+          $(this).closest('.email-container').remove();
+        });
         $('.add-rule').click(function() {
           var rules = $(this).siblings('.rules');
           var lastRule = rules.children('.rule').last();
@@ -18,7 +26,7 @@ html(lang='en')
           newRule.data('ruleNumber', ruleNumber);
           newRule.find('.rule-condition').attr('name', 'rule['+ruleNumber+']condition');
           newRule.find('.rule-value').attr('name', 'rule['+ruleNumber+']values');
-          rules.append(newRule.clone());
+          rules.append(newRule.clone(true));
         });
         $('.remove-rule').click(function() {
           $(this).closest('.rule').remove();
@@ -42,28 +50,41 @@ html(lang='en')
         div.edit-column
         div.clear
         hr
+
+        mixin email(address)
+          div.email-container
+            input.email(name='emails', value=address)
+            a.remove-email(href='#') X
+
+        mixin rule(ruleNumber, rule)
+          div.rule(data-rule-number=ruleNumber)
+            div.rule-condition-container
+              select.rule-condition(name='rule[#{ruleNumber}]condition')
+                option(value='any', selected=(rule.condition === 'any')) Any
+                option(value='all', selected=(rule.condition === 'all')) All
+              a.remove-rule(href='#') Delete Rule
+            div.rule-values-container
+              each group in groups
+                div.selector
+                  label
+                    input.rule-value(type='checkbox', name='rule[#{ruleNumber}]values', value=group, checked=(rule.values.indexOf(group) !== -1))
+                  | #{group}
+
         mixin row(subscription, isNew)
           - var id = subscription.id || '';
           form(action='/subscriptions/#{id}', method='POST')
             div.row
               div.email-column
-                input(name='email', value=subscription.email)
+                div.emails
+                  if subscription.emails
+                    each email in subscription.emails
+                      +email(email)
+                a.add-email(href='#') Add Email
               div.group-column
                 div.rules
                   if subscription.groupRules
                     each rule, ruleNumber in subscription.groupRules
-                      div.rule(data-rule-number=ruleNumber)
-                        div.rule-condition-container
-                          select.rule-condition(name='rule[#{ruleNumber}]condition')
-                            option(value='any', selected=(rule.condition === 'any')) Any
-                            option(value='all', selected=(rule.condition === 'all')) All
-                          a.remove-rule(href='#') Delete Rule
-                        div.rule-values-container
-                          each group in groups
-                            div.selector
-                              label
-                                input.rule-value(type='checkbox', name='rule[#{ruleNumber}]values', value=group, checked=(rule.values.indexOf(group) !== -1))
-                              | #{group}
+                      +rule(ruleNumber, rule)
                 a.add-rule(href='#') Add Rule
               div.edit-column
                 button.save Save
@@ -71,20 +92,13 @@ html(lang='en')
                   button.delete(type='button') Delete
               div.clear
               hr
+
       each subscription in subscriptions
         +row(subscription)
       +row({}, true)
 
     div#new-rule.hidden
-      div.rule(data-rule-number='0')
-        div.rule-condition-container
-          select.rule-condition
-            option(value='any') Any
-            option(value='all') All
-          a.remove-rule(href='#') Delete Rule
-        div.rule-values-container
-          each group in groups
-            div.selector
-              label
-                input.rule-value(type='checkbox', value=group)
-              | #{group}
+      +rule(0, {condition: 'Any', values: []})
+
+    div#new-email.hidden
+      +email('')

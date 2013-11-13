@@ -4,15 +4,8 @@ body {
   margin: 50px;
 }
 
-table {
-  border-collapse:collapse;
-  margin: 0 auto;
-  width: 90%;
-}
-
-table, th, td {
-  border:solid 1px black;
-  text-align: center;
+.hidden {
+  display: none;
 }
 
 .left {
@@ -46,7 +39,7 @@ table, th, td {
 }
 
 .row {
-  width: 93em;
+  width: 98em;
 }
 
 .subscriptions-header {
@@ -54,8 +47,7 @@ table, th, td {
 }
 
 .email-column {
-  width: 20em;
-  height: 1.8em;
+  width: 26em;
   float:left;
 }
 
@@ -71,6 +63,10 @@ table, th, td {
   text-align: left;
 }
 
-.hidden {
-  display: none;
+.email {
+  width: 20em;
+}
+
+.remove-email {
+  padding: 0em .5em;
 }
