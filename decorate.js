@@ -6,11 +6,11 @@ var ErrorPage = require('error-page')
   , path = require('path')
   , url = require('url')
   , templateFolder = path.resolve(__dirname, 'views')
-  , templateOptions = { engine: jade, folder: templateFolder }
-  , Subscriptions = require('./models/subscriptions');
+  , templateOptions = { engine: jade, folder: templateFolder };
 
 function decorate (req, res, config) {
-  req.subscriptions = new Subscriptions(config.db);
+  req.subscriptions = config.subscriptions;
+  req.manager = config.manager;
 
   res.error = ErrorPage(req, res);
   res.template = Templar(req, res, templateOptions);

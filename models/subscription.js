@@ -9,6 +9,7 @@ function Subscription(id, properties, db) {
   this.id = id;
   this._db = db;
   this.emails = properties.emails || [];
+  this.schedule = properties.schedule || {};
   this.groupRules = (properties.groupRules || []).map(function(p) {
     return Rule(p.condition, p.values);
   });
@@ -27,6 +28,7 @@ Subscription.prototype.toJSON = function() {
   return {
       id: this.id 
     , emails: this.emails
+    , schedule: this.schedule
     , groupRules: this.groupRules
     , paused: this.paused
   };

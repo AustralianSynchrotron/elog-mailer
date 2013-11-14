@@ -43,6 +43,7 @@ function updateSubscription (id, req, res) {
       });
 
       subscription.save(function(err) {
+        req.manager.update(subscription);
         res.redirect('/');
       });
 
@@ -53,12 +54,14 @@ function updateSubscription (id, req, res) {
 function createSubscription (req, res) {
   parseFields(req, res, function(err, fields) {
     return req.subscriptions.create(fields, function(err, subscription) {
+      req.manager.add(subscription);
       res.redirect('/');
     });
   });
 }
 
 function deleteSubscription (id, req, res) {
+  req.manager.delById(id);
   return req.subscriptions.del(id, function(err) {
     res.redirect('/');
   });

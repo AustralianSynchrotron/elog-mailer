@@ -1,4 +1,4 @@
-exports.db = {
+exports.elogDb = {
   host: 'localhost',
   user: 'name',
   password: 'secret',
