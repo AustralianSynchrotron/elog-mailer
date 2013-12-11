@@ -1,7 +1,8 @@
 var should = require('should')
   , search = require('../search')
   , config = require('../config')
-  , Subscription = require('../models/subscription');
+  , Subscription = require('../models/subscription')
+  , _ = require('underscore')
 
 var id = 'id123';
 var properties = {
@@ -25,4 +26,19 @@ describe('search', function() {
       next();
     });
   });
+  it('should return entries sorted by created date', function(next) {
+    var properties = {
+        emails: [ 'mail@example.com' ]
+      , groupRules: []
+    };
+    var subscription = new Subscription('id', properties);
+    var startDate = new Date('2013-10-09 12:00');
+    var endDate = new Date('2013-10-09 16:00');
+    search(config.elogDb, startDate, endDate, subscription, function(err, entries) {
+      for(var i = 1; i < entries.length - 1; i += 1) {
+        (entries[i].created - entries[i-1].created).should.not.be.below(0)
+      }
+      next()
+    });
+  })
 });

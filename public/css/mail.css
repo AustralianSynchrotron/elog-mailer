@@ -1,0 +1,58 @@
+body {
+  font-family:"Arial";
+  font-size: 80%;
+}
+
+.clearfix:before, .clearfix:after {
+  content:" ";
+  display:table
+}
+
+.clearfix:after {
+  clear:both
+}
+
+div.container {
+  max-width: 980px;
+}
+
+.header {
+  width: 100%;
+  min-height: 1.4em;
+  font-weight: bold;
+  background-color: #CEE8FB;
+  position: relative;
+}
+
+.severity {
+  float: left;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 12%;
+  background-color: #599BCE;
+}
+
+.title {
+  float: left;
+  margin: 0px 0px 0px 12%;
+  width: 58%;
+  height: 100%;
+}
+
+.author {
+  float: left;
+  width: 30%;
+  height: 100%;
+  text-align: right;
+}
+
+.date {
+  float: left;
+  width: 12%;
+}
+
+.text {
+  float: left;
+  width: 88%;
+}

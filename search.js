@@ -36,6 +36,7 @@ function search(db, startDate, endDate, subscription, callback) {
     connection.query(query, [startDate, endDate], function(err, entries, fields) {
       if(err) return callback(err);
       entries = _.filter(_.map(entries, Entry), subscription.evaluateRules, subscription);
+      entries = _.sortBy(entries, function(entry) { return entry.created})
       callback(err, entries);
       connection.destroy();
     });

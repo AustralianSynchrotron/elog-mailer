@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node_modules/.bin/forever --minUptime 1000 --spinSleepTime 1000 -w index.js",
     "test": "./node_modules/.bin/mocha -R spec --recursive tests"
   },
   "author": "Robbie Clarken",
@@ -26,10 +26,12 @@
     "node-schedule": "*",
     "st": "*",
     "underscore": "*",
-    "formidable": "*"
+    "formidable": "*",
+    "dateformat": "~1.0.7-1.2.3"
   },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "forever": "~0.10.10"
   }
 }
