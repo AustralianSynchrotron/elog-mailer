@@ -9,6 +9,7 @@ var ErrorPage = require('error-page')
   , templateOptions = { engine: jade, folder: templateFolder };
 
 function decorate (req, res, config) {
+  req.config = config;
   req.subscriptions = config.subscriptions;
   req.manager = config.manager;
 

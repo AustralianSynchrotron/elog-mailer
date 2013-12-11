@@ -13,7 +13,6 @@ function mail(entries, recipients, subject, callback) {
       , to: recipients
       , subject: subject
       , html: html
-      , forceEmbeddedImages: true
     };
     transport.sendMail(message, callback);
   });

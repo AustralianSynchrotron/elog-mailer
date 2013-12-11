@@ -6,7 +6,9 @@ function Entry(fields) {
   this.title = fields.title;
   this.author = fields.author;
   this.created = fields.created;
-  this.text = fields.text;
+  var filesSource = new RegExp('(http://sol.synchrotron.org.au)?/userfiles', 'g')
+    , filesTarget = 'ftp://physicsread:physicsreadonly@ftp.synchrotron.org.au/sol/userfiles';
+  this.text = fields.text.replace(filesSource, filesTarget, 'g');
   this.severity = fields.severity;
   this.beamMode = fields.beamMode;
   this.groups = 'groups' in fields

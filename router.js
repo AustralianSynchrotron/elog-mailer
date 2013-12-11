@@ -10,3 +10,4 @@ router.addRoute('/js/*?', static);
 router.addRoute('/', require('./routes/index'));
 router.addRoute('/subscriptions', require('./routes/subscriptions'));
 router.addRoute('/subscriptions/:id', require('./routes/subscriptions'));
+router.addRoute('/preview', require('./routes/preview'));
