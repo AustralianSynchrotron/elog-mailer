@@ -8,7 +8,7 @@ function Entry(fields) {
   this.title = fields.title;
   this.author = fields.author;
   this.created = fields.created;
-  if(typeof this.text !== 'undefined') {
+  if(typeof fields.text !== 'undefined') {
     var filesSource = new RegExp('(http://sol.synchrotron.org.au)?/userfiles', 'g')
       , filesTarget = 'ftp://physicsread:physicsreadonly@ftp.synchrotron.org.au/sol/userfiles';
     this.text = fields.text.replace(filesSource, filesTarget);

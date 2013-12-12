@@ -2,7 +2,6 @@ var should = require('should')
   , search = require('../search')
   , config = require('../config')
   , Subscription = require('../models/subscription')
-  , _ = require('underscore')
 
 var id = 'id123';
 var properties = {

@@ -1,11 +1,6 @@
-link(rel='stylesheet', href='/css/mail.css')
-
-div.container
-  for entry in entries
-    div.header.clearfix
-      div.severity
-      div.title= entry.title
-      div.author= entry.author
-    div.lower.clearfix
-      div.date= entry.createdString()
-      div.text!= entry.text
+for entry in entries
+  h2(style="margin:0;padding:0")= entry.title
+  h3(style="margin:0;padding:0")= entry.author
+  h4(style="margin:0;padding:0")= entry.createdString()
+  p!= entry.text
+  hr
