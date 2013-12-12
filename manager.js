@@ -1,7 +1,8 @@
 module.exports = Manager;
 
 var schedule = require('node-schedule')
-  , search = require('./search');
+  , search = require('./search')
+  , mail = require('./mail')
 
 function Manager(db, subscriptions) {
   if(!(this instanceof Manager)) return new Manager(db, subscriptions);
@@ -45,7 +46,10 @@ Manager.prototype.process = function process(subscription) {
   var endDate = new Date();
   var startDate = new Date(endDate - 86400000);
   search(this._db, startDate, endDate, subscription, function(err, entries) {
-    //TODO: Email entries
+    console.log('Emailing ' + entries.length + ' entries to ' + subscription.emails + '.')
+    mail(entries, subscription.emails, 'eLog Summary', function(err) {
+      if(err) console.error(err)
+    })
   });
 }
 

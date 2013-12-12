@@ -1,6 +1,6 @@
 {
   "name": "elog-mailer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Manage email subscriptions to the Australian Synchrotron elog.",
   "repository": {
     "type": "git",
@@ -27,11 +27,11 @@
     "st": "*",
     "underscore": "*",
     "formidable": "*",
-    "dateformat": "~1.0.7-1.2.3"
+    "dateformat": "*"
   },
   "devDependencies": {
     "mocha": "*",
     "should": "*",
-    "forever": "~0.10.10"
+    "forever": "*"
   }
 }

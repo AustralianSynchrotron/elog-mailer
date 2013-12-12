@@ -4,7 +4,16 @@ var _ = require('underscore');
 
 function Rule(condition, values) {
   if(!(this instanceof Rule)) return new Rule(condition, values);
-  // TODO: Validate
+
+  if(condition !== 'any' && condition !== 'all') {
+    console.error('Unrecognised condition: ' + condition);
+    return null;
+  }
+  if(!Array.isArray(values)) {
+    console.error('Values must be an array. Got: ' + values);
+    return null;
+  }
+
   this.condition = condition;
   this.values = values;
 }

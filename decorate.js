@@ -6,7 +6,7 @@ var ErrorPage = require('error-page')
   , path = require('path')
   , url = require('url')
   , templateFolder = path.resolve(__dirname, 'views')
-  , templateOptions = { engine: jade, folder: templateFolder };
+  , templateOptions = { engine: jade, folder: templateFolder, cache: false };
 
 function decorate (req, res, config) {
   req.config = config;
