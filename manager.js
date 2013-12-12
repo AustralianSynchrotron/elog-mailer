@@ -43,13 +43,21 @@ Manager.prototype.update = function update(subscription) {
 }
 
 Manager.prototype.process = function process(subscription) {
-  var endDate = new Date();
-  var startDate = new Date(endDate - 86400000);
+
+  var endDate = new Date()
+  var startDate = new Date(endDate - 86400000)
+
   search(this._db, startDate, endDate, subscription, function(err, entries) {
-    console.log('Emailing ' + entries.length + ' entries to ' + subscription.emails + '.')
+
+    console.log('Found ' + entries.length + ' entries for ' + subscription.emails + '.')
+
+    if(entries.length === 0) return
+
     mail(entries, subscription.emails, 'eLog Summary', function(err) {
       if(err) console.error(err)
     })
-  });
+
+  })
+
 }
 
