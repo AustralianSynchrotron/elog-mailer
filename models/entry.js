@@ -10,7 +10,7 @@ function Entry(fields) {
   this.created = fields.created;
   if(typeof fields.text !== 'undefined') {
     var filesSource = new RegExp('(http://sol.synchrotron.org.au)?/userfiles', 'g')
-      , filesTarget = 'ftp://physicsread:physicsreadonly@ftp.synchrotron.org.au/sol/userfiles';
+      , filesTarget = 'http://www.synchrotron.org.au/images/downloads/sol';
     this.text = fields.text.replace(filesSource, filesTarget);
   }
   this.severity = fields.severity;
