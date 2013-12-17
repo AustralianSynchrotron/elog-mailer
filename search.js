@@ -24,6 +24,7 @@ function search(db, startDate, endDate, subscription, callback) {
                     'NATURAL LEFT JOIN elog_groups g '+
                     'NATURAL LEFT JOIN elog_group_data gd '+
                   'WHERE e.created BETWEEN ? AND ? '+
+                  'AND sd.severity_title != "Delete"'+
                   'GROUP BY e.entry_id'+
                 ') eg '+
                 'NATURAL LEFT JOIN elog_keywords k '+
