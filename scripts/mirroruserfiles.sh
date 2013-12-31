@@ -12,7 +12,7 @@ SOURCE_DIR=
 TARGET_DIR=
 DAYS=7
 
-for (( i=0; i<$DAYS; i++))
+for (( i=0; i<$DAYS; i++ ))
 do
   DIR=$(date -d "$i days ago" +"%Y/%m/%d")
   INCLUDES="--include=$DIR/***${INCLUDES+ $INCLUDES}"
